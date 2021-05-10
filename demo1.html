@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>three.js study demo1</title>
+  <script src="./lib/three.js"></script>
+</head>
+<body>
+  <canvas id="mainCanvas" width="600px" height="800px"></canvas>
+</body>
+
+<script>
+  const canvas = document.querySelector('#mainCanvas');
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true
+  });
+  const scene = new THREE.Scene();
+
+  const geometry = new THREE.BoxGeometry(100, 100, 100); //创建一个立方体几何对象Geometry
+  const material = new THREE.MeshLambertMaterial({
+    color: 0xcccccc
+  }); //材质对象Material
+  const mesh = new THREE.Mesh(geometry, material); //网格模型对象Mesh
+  scene.add(mesh); //网格模型添加到场景中
+
+  const point = new THREE.PointLight(0xffffff);
+  point.position.set(600, 100, 300); //点光源位置
+  scene.add(point); //点光源添加到场景中
+
+  const camera = new THREE.OrthographicCamera(-600, 600, 800, -800, 1, 1000);
+  camera.position.set(200, 100, 300); //设置相机位置
+  camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
+  
+  renderer.setClearColor(0xf0f0f0, 1); //设置背景颜色
+  renderer.render(scene, camera);
+</script>
+</html>
